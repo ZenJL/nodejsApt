@@ -24,13 +24,19 @@ const server = http.createServer((req, res) => {
       console.log(parsedBody);
 
       const message = parsedBody.split("=")[1];
-      fs.writeFileSync("message.txt", message);
+      // fs.writeFileSync("message.txt", message);
+      fs.writeFile("message.txt", message, () => {
+        res.statusCode = 302;
+        res.setHeader("Location", "/");
+        res.end();
+        return;
+      });
     });
 
-    res.statusCode = 302;
-    res.setHeader("Location", "/");
-    res.end();
-    return;
+    // res.statusCode = 302;
+    // res.setHeader("Location", "/");
+    // res.end();
+    // return;
   } else if (url === "/") {
     res.write("<html>");
     res.write("<head><title>My web</title></head>");
