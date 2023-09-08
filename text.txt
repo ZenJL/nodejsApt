@@ -2,3 +2,9 @@ Synchronous === wait, step by step
 Asynchronous === multi action
 
 npm ... => run code in scripts
+
+app.use ko url -> match all -> proceed
+app.use co url -> match url -> proceed
+
+app.use -> if qualify on url -> ordering specific url from top to bottom:
+e.g: "/root/abc" -> "/root" -> "/"
