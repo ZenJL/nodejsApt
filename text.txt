@@ -1,2 +1,4 @@
 Synchronous === wait, step by step
 Asynchronous === multi action
+
+npm ... => run code in scripts
