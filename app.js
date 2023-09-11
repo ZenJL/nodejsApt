@@ -1,9 +1,11 @@
 // lecture 1
 // import nodejs === keyword 'require'
 const http = require("http");
-// const route = require("./route");
 const express = require("express");
 const bodyParser = require("body-parser");
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+const notfoundRoutes = require("./routes/notfound");
 
 const app = express();
 
@@ -11,28 +13,10 @@ const app = express();
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use((req, res, next) => {
-//   console.log("always run");
-//   next();
-// });
+app.use(adminRoutes);
 
-app.use("/add-product", (req, res, next) => {
-  res.send(
-    "<form action='/product' method='POST'><input type='text' name='title' /><button type='submit'>Submit</button></form>"
-  );
-});
+app.use(shopRoutes);
 
-app.use("/product", (req, res, next) => {
-  console.log(`app.js: line 23 🐱‍🚀❄🐱‍🏍 req ===>`, req.body.title);
-  res.redirect("/");
-});
+app.use(notfoundRoutes);
 
-app.use("/", (req, res, next) => {
-  res.send("<h1>Homepage</h1>");
-});
-
-// const server = http.createServer(app);
-// Express can run directly without createServer
-
-// server.listen(3001);
 app.listen(3001);
