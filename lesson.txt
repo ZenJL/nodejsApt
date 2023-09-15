@@ -1,6 +1,7 @@
-=== lecture 1 ===
+$=== lecture 1 ===
 Synchronous === wait, step by step
 Asynchronous === multi action
+
 
 === lecture 2 ===
 npm ... => run code in scripts
@@ -13,3 +14,10 @@ e.g: "/root/abc" -> "/root" -> "/"
 
 app.use -> can use to "GET" / "POST"
 app.get or app.post -> check correct url
+
+
+=== lecture 2 ===
+convert image to base64 => pass link to url for quick demo UI
+write ejs like php: <% >  <% >
+
+<%= > => output value

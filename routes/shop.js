@@ -10,7 +10,11 @@ router.get("/", (req, res, next) => {
   // res.sendFile(path.join(__dirname, "..", "views", "shop.html"));
   console.log(`shop.js: line 11 🚀💫❄️🐱 adminData ===>`, adminData.products);
 
-  res.render("shop", { pageTitle: "Shop" });
+  res.render("shop", {
+    pageTitle: "Shop",
+    products: adminData.products,
+    path: "/",
+  });
 });
 
 module.exports = router;
