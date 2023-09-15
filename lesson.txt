@@ -21,3 +21,11 @@ convert image to base64 => pass link to url for quick demo UI
 write ejs like php: <% >  <% >
 
 <%= > => output value
+
+=== lecture 3 ===
+controller: handle logic from request
+view: UI
+modal:
+
+c2 sua loi path undefined o navigation
+(typeof path !== 'undefined') ? (path==='/'? 'active' : "") : ""
