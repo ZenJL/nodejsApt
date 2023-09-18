@@ -1,7 +1,7 @@
-<%- include('../includes/head.ejs') %>
+<%- include('../../includes/head.ejs') %>
   </head>
   <body class="vh-100 d-flex flex-column">
-    <%- include('../includes/navigation.ejs') %>
+    <%- include('../../includes/navigation.ejs') %>
     
     <main class="flex-grow-1 d-flex flex-column container">
       <form
@@ -9,8 +9,12 @@
         method="POST"
         style="max-width: 330px"
         class="m-auto"
+        enctype="multipart/form-data"
       >
-        <input type="text" name="title" class="form-control mb-3" /><button
+    
+        <input type="text" name="title" class="form-control mb-3" />
+        <input type="file" name="image" class="form-control mb-3" />
+        <button
           type="submit"
           class="btn btn-primary w-100"
         >
@@ -19,4 +23,4 @@
       </form>
     </main>
 
-    <%- include('../includes/footer.ejs') %>
+<%- include('../../includes/footer.ejs') %>

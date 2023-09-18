@@ -20,7 +20,7 @@
             <a class="nav-link <%= path==="/"? "active" : ""%>" aria-current="page" href="/">Shop</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <%= path==="/admin/add-product"? "active" : ""%>" href="/admin/add-product">Add Product</a>
+            <a class="nav-link <%= path==="/cart"? "active" : ""%>" href="/cart">Shopping Cart</a>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -30,15 +30,11 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Dropdown
+              Administration Product
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a class="dropdown-item" href="#">Something else here </a>
-              </li>
+              <li><a class="dropdown-item" href="/admin/list-product">List Product</a></li>
+              <li><a class="dropdown-item" href="/admin/add-product">Add Product</a></li>
             </ul>
           </li>
         </ul>

@@ -29,3 +29,7 @@ modal:
 
 c2 sua loi path undefined o navigation
 (typeof path !== 'undefined') ? (path==='/'? 'active' : "") : ""
+
+library "multer"
+1. dinh nghia storage chua file upload
+2. 
