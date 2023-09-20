@@ -33,3 +33,7 @@ c2 sua loi path undefined o navigation
 library "multer"
 1. dinh nghia storage chua file upload
 2. 
+
+
+/ tuyet doi,
+ko "/" => tuong doi

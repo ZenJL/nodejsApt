@@ -11,9 +11,26 @@
         class="m-auto"
         enctype="multipart/form-data"
       >
-    
-        <input type="text" name="title" class="form-control mb-3" />
-        <input type="file" name="image" class="form-control mb-3" />
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" name="title" class="form-control mb-3" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Price</label>
+          <input type="text" inputmode="numeric" pattern="[0-9]*[0-9]+" name="price" class="form-control mb-3" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <input type="text" name="description" class="form-control mb-3" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Image File</label>
+          <input type="file" name="image" class="form-control mb-3" />
+        </div>
+
         <button
           type="submit"
           class="btn btn-primary w-100"

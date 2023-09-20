@@ -57,6 +57,7 @@ app.use(
     path.join(__dirname, "node_modules", "bootstrap", "dist", "js")
   )
 );
+app.use("/images", express.static(path.join(__dirname, "images")));
 // === e n d use on browser ===
 
 app.set("view engine", "ejs");
