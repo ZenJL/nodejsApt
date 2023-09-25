@@ -1,14 +1,15 @@
 // lecture 1
 // import nodejs === keyword 'require'
-const http = require("http");
+// const http = require("http");
 const express = require("express");
 const bodyParser = require("body-parser");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const notfoundRoutes = require("./routes/notfound");
 const path = require("path");
-const exceptionController = require("./controllers/exceptionController");
+const exceptionController = require("./controllers/exception-controller");
 const multer = require("multer");
+const sequelize = require("./util/mysql");
 
 const app = express();
 
@@ -72,6 +73,13 @@ app.use(shopRoutes);
 //   res.status(404).send('Page not found');
 // });
 
-app.use(exceptionController.notFound404);
+app.use(exceptionController.handle404);
 
-app.listen(3001);
+// app.listen(3001);
+
+sequelize
+  .sync()
+  .then(() => {
+    app.listen(3001);
+  })
+  .catch((err) => console.log(err));

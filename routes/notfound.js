@@ -1,5 +1,5 @@
 const express = require("express");
-const exceptionController = require("../controllers/exceptionController");
+const exceptionController = require("../controllers/exception-controller");
 
 const router = express.Router();
 
