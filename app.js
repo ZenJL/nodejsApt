@@ -10,6 +10,7 @@ const exceptionController = require("./controllers/exception-controller");
 const multer = require("multer");
 const sequelize = require("./utils/mysql");
 const mongoConnect = require("./utils/mongodb").mongoConnect;
+const User = require("./models/user");
 
 const app = express();
 
@@ -63,6 +64,18 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.set("view engine", "ejs");
 app.set("views", "views"); // setting view (1), thu muc view (2)
+
+// load user info before log into others route
+app.use((req, res, next) => {
+  // load user info
+  User.findUserById("651428e9075ea6b62a1f2cec")
+    .then((result) => {
+      req.user = result;
+      console.log(req.user);
+      next();
+    })
+    .catch((err) => console.log(err));
+});
 
 // Prefix
 app.use("/admin", adminRoutes.routes); //// url='/admin/add-product ;; /admin/product
