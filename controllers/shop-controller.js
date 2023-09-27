@@ -13,7 +13,7 @@ exports.getProductList = (req, res, next) => {
   //   }
   // );
 
-  Product.fetchAll()
+  Product.findAll()
     .then((result) => {
       res.render("shop/product-list", {
         pageTitle: "Shop",
@@ -33,3 +33,11 @@ exports.getProductList = (req, res, next) => {
 //     }
 //   );
 // };
+
+exports.addItemToCart = (req, res, next) => {
+  const productId = req.body.productId;
+  Product.findById(productId)
+    .then((product) => req.user.addToCart(product))
+    .then((result) => console.log(result))
+    .catch((err) => console.log(err));
+};

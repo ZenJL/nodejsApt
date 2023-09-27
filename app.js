@@ -70,7 +70,7 @@ app.use((req, res, next) => {
   // load user info
   User.findUserById("651428e9075ea6b62a1f2cec")
     .then((result) => {
-      req.user = result;
+      req.user = new User(result._id, result.name, result.email, result.cart);
       console.log(req.user);
       next();
     })
@@ -80,7 +80,7 @@ app.use((req, res, next) => {
 // Prefix
 app.use("/admin", adminRoutes.routes); //// url='/admin/add-product ;; /admin/product
 
-// app.use(shopRoutes);
+app.use(shopRoutes);
 
 // app.use((req, res, next) => {
 //   res.status(404).send('Page not found');

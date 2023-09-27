@@ -27,7 +27,7 @@ class Product {
     }
   }
 
-  static fetchAll() {
+  static findAll() {
     const db = getDb();
     return db
       .collection("products")
