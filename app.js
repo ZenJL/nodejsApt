@@ -5,11 +5,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
-const notfoundRoutes = require("./routes/notfound");
 const path = require("path");
 const exceptionController = require("./controllers/exception-controller");
 const multer = require("multer");
-const sequelize = require("./util/mysql");
+const sequelize = require("./utils/mysql");
+const mongoConnect = require("./utils/mongodb").mongoConnect;
 
 const app = express();
 
@@ -67,7 +67,7 @@ app.set("views", "views"); // setting view (1), thu muc view (2)
 // Prefix
 app.use("/admin", adminRoutes.routes); //// url='/admin/add-product ;; /admin/product
 
-app.use(shopRoutes);
+// app.use(shopRoutes);
 
 // app.use((req, res, next) => {
 //   res.status(404).send('Page not found');
@@ -77,9 +77,13 @@ app.use(exceptionController.handle404);
 
 // app.listen(3001);
 
-sequelize
-  .sync()
-  .then(() => {
-    app.listen(3001);
-  })
-  .catch((err) => console.log(err));
+// sequelize
+//   .sync()
+//   .then(() => {
+//     app.listen(3001);
+//   })
+//   .catch((err) => console.log(err));
+
+mongoConnect(() => {
+  app.listen(3001);
+});

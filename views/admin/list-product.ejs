@@ -39,11 +39,11 @@
                     
                   <form action="/admin/delete-product" method="post">
                     <input type="hidden" name="productId"
-                    value="<%= product.id %>" />
+                    value="<%= product._id %>" />
                     <button type="submit" class="btn btn-primary" style="width: 100px;">Delete</button>
                   </form>
 
-                  <a href="/admin/edit-product/<%= product.id %>" class="btn btn-primary" style="width: 100px;">Edit</a>
+                  <a href="/admin/edit-product/<%= product._id %>" class="btn btn-primary" style="width: 100px;">Edit</a>
                   
                 </div>
 

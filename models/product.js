@@ -1,67 +1,68 @@
-// let products = [];
+const getDb = require("../utils/mongodb").getDB;
+const mongodb = require("mongodb");
 
-const sequelize = require("../util/mysql");
-const Sequelize = require("sequelize");
+class Product {
+  constructor(_id, title, price, description, imageUrl) {
+    this._id = _id;
+    this.title = title;
+    this.price = price;
+    this.description = description;
+    this.imageUrl = imageUrl;
+  }
 
-// module.exports = class Product {
-//   constructor(id, title, imageUrl, description, price) {
-//     this.id = id;
-//     this.title = title;
-//     this.imageUrl = imageUrl;
-//     this.price = price;
-//     this.description = description;
-//   }
+  save() {
+    const db = getDb();
+    if (this._id) {
+      return db
+        .collection("products")
+        .updateOne({ _id: new mongodb.ObjectId(this._id) }, { $set: this })
+        .then((res) => console.log(`res ins done ===>`, res))
+        .catch((err) => console.log("insert err", err));
+    } else {
+      return db
+        .collection("products")
+        .insertOne(this)
+        .then((res) => console.log(`res ins done ===>`, res))
+        .catch((err) => console.log("insert err", err));
+    }
+  }
 
-//   save() {
-//     if (this.id) {
-//       const findIndex = products.findIndex((product) => product.id == this.id);
-//       const updatedProduct = [...products];
-//       updatedProduct[findIndex] = { ...this };
+  static fetchAll() {
+    const db = getDb();
+    return db
+      .collection("products")
+      .find()
+      .toArray()
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-//       products = updatedProduct;
-//     } else {
-//       this.id = Math.random();
-//       products.push(this); // push into products = [] as above
-//     }
-//   }
+  static findById(productId) {
+    const db = getDb();
+    return db
+      .collection("products")
+      .find({ _id: new mongodb.ObjectId(productId) })
+      .next()
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-//   static fetchAll() {
-//     return products;
-//   } // get products from this method not direct from products above
-
-//   static findById(id) {
-//     return products.find((product) => product.id == id);
-//   }
-
-//   static delete(id) {
-//     const findIndex = products.find((product) => product.id === id);
-
-//     if (findIndex !== -1) {
-//       products.splice(findIndex, 1);
-//     }
-//   }
-// };
-
-const Product = sequelize.define("product", {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true,
-  },
-  title: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  price: {
-    type: Sequelize.DECIMAL(13, 2),
-    allowNull: false,
-  },
-  imageUrl: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  description: Sequelize.STRING,
-});
+  static deleteById(productId) {
+    const db = getDb();
+    return db
+      .collection("products")
+      .deleteOne({ _id: new mongodb.ObjectId(productId) })
+      .then(() => console.log("deleted success"))
+      .catch((err) => console.log(err));
+  }
+}
 
 module.exports = Product;

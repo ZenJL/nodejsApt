@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const mongodb = require("mongodb");
 
 exports.showAddProductForm = (req, res, next) => {
   res.render("admin/add-product", {
@@ -34,15 +35,25 @@ exports.insertNewProduct = (req, res, next) => {
   // product.save();
   // res.redirect("/admin/list-product");
 
-  // Insert DB
-  Product.create({
-    title,
-    price,
-    imageUrl,
-    description,
-  }).then(() => {
-    res.redirect("/admin/list-product");
-  });
+  // Insert mongo
+  const product = new Product(null, title, price, description, imageUrl);
+  // save this to db
+  product
+    .save()
+    .then(() => {
+      res.redirect("/admin/list-product");
+    })
+    .catch((err) => console.log("product-controller insert: ", err));
+
+  // // Insert DB
+  // Product.create({
+  //   title,
+  //   price,
+  //   imageUrl,
+  //   description,
+  // }).then(() => {
+  //   res.redirect("/admin/list-product");
+  // });
 };
 
 exports.listProduct = (req, res, next) => {
@@ -61,7 +72,7 @@ exports.listProduct = (req, res, next) => {
   //   })
   //   .catch((err) => console.log(err));
 
-  Product.findAll()
+  Product.fetchAll()
     .then((result) => {
       res.render("admin/list-product", {
         pageTitle: "list product",
@@ -74,15 +85,7 @@ exports.listProduct = (req, res, next) => {
 exports.showEditProductForm = (req, res, next) => {
   const proId = req.params.productId;
 
-  // let editProduct = Product.findById(proId);
-
-  // res.render("admin/editProduct", {
-  //   pageTitle: "edit product",
-  //   // path: "/admin/add-product",
-  //   product: editProduct,
-  // });
-
-  Product.findByPk(proId).then((result) => {
+  Product.findById(proId).then((result) => {
     res.render("admin/edit-product", {
       pageTitle: "edit product",
       product: result,
@@ -99,12 +102,18 @@ exports.updateProduct = (req, res, next) => {
     imageUrl = imageFile.path;
   }
 
-  const id = Number(req.body.productId);
+  const id = req.body.productId;
   const title = req.body.title;
   const price = req.body.price;
   const description = req.body.description;
 
-  const product = new Product(id, title, imageUrl, description, price);
+  const product = new Product(
+    new mongodb.ObjectId(id),
+    title,
+    price,
+    description,
+    imageUrl
+  );
 
   // products.push({  // not using 'products' directly, instead create new instance product and call method save()
   //   title: req.body.title,
@@ -113,30 +122,14 @@ exports.updateProduct = (req, res, next) => {
 
   // res.redirect("/admin/list-product");
 
-  Product.update(
-    {
-      title,
-      price,
-      imageUrl,
-      description,
-    },
-    {
-      where: {
-        id: id,
-      },
-    }
-  )
+  product
+    .save()
     .then(() => res.redirect("/admin/list-product"))
     .catch((error) => console.log(error));
 };
 
 exports.deleteProduct = (req, res, next) => {
-  // Product.delete(req.body.productId);
-  // res.redirect("/admin/list-product");
-
-  Product.findByPk(+req.body.productId)
-    .then((product) => {
-      return product.destroy();
-    })
-    .then(res.redirect("/admin/list-product"));
+  Product.deleteById(req.body.productId)
+    .then(res.redirect("/admin/list-product"))
+    .catch((err) => console.log(err));
 };

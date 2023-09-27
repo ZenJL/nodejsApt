@@ -13,7 +13,7 @@ exports.getProductList = (req, res, next) => {
   //   }
   // );
 
-  Product.findAll()
+  Product.fetchAll()
     .then((result) => {
       res.render("shop/product-list", {
         pageTitle: "Shop",
@@ -24,12 +24,12 @@ exports.getProductList = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-exports.shoppingCart = (req, res, next) => {
-  res.render(
-    "shop/cart", // shop = shop.ejs
-    {
-      pageTitle: "Cart",
-      // products: products,
-    }
-  );
-};
+// exports.shoppingCart = (req, res, next) => {
+//   res.render(
+//     "shop/cart", // shop = shop.ejs
+//     {
+//       pageTitle: "Cart",
+//       // products: products,
+//     }
+//   );
+// };
